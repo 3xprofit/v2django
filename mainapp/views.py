@@ -8,7 +8,7 @@ def main(request):
 
 
 def products(request):
-    return render(request, 'mainapp/products.html')
+    return render(request, 'mainapp/products.html', {'username': 'Юрий', 'products': ["мягкая игрушка", "машинка"]})
 
 
 def contacts(request):
