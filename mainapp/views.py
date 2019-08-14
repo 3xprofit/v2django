@@ -1,15 +1,30 @@
 from django.shortcuts import render
+import json, os
+from .models import Product
 
-from django.shortcuts import render
+JSON_PATH = 'mainapp/json'
+
+
+def loadMenuFromJSON():
+    with open(os.path.join(JSON_PATH, 'menu.json'), 'r') as infile:
+        return json.load(infile)
 
 
 def main(request):
-    return render(request, 'mainapp/main.html')
+    links_menu = loadMenuFromJSON()
+    context = {'links_menu': links_menu, 'username': 'Юрий'}
+    return render(request, 'mainapp/main.html', context)
 
 
 def products(request):
-    return render(request, 'mainapp/products.html', {'username': 'Юрий', 'products': ["мягкая игрушка", "машинка"]})
+    links_menu = loadMenuFromJSON()
+    context = {'links_menu': links_menu, 'products': Product.objects.all()}
+    return render(request, 'mainapp/products.html', context)
 
 
 def contacts(request):
-    return render(request, 'mainapp/contacts.html')
+    links_menu = loadMenuFromJSON()
+    context = {'links_menu': links_menu}
+    return render(request, 'mainapp/contacts.html', context)
+
+
