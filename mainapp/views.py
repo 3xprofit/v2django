@@ -6,13 +6,13 @@ JSON_PATH = 'mainapp/json'
 
 
 def loadMenuFromJSON():
-    with open(os.path.join(JSON_PATH, 'menu.json'), 'r') as infile:
+    with open(os.path.join(JSON_PATH, 'menu.json'), 'r', encoding='UTF-8') as infile:
         return json.load(infile)
 
 
 def main(request):
     links_menu = loadMenuFromJSON()
-    context = {'links_menu': links_menu, 'username': 'Юрий'}
+    context = {'links_menu': links_menu}
     return render(request, 'mainapp/main.html', context)
 
 
